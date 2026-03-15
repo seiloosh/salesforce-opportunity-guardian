@@ -1,0 +1,54 @@
+<template>
+    <template lwc:if={hasAlerts}>
+        <lightning-card>
+            <div class="alert-container">
+                <div class="alert-header">
+                    <lightning-icon
+                        icon-name="utility:warning"
+                        alternative-text="Warning"
+                        size="small"
+                        variant="warning"
+                        class="slds-m-right_x-small"
+                    ></lightning-icon>
+                    <span class="slds-text-heading_small alert-title"
+                        >Stale Opportunity Alert</span
+                    >
+                </div>
+                <p class="slds-m-top_x-small slds-text-body_regular">
+                    This opportunity has not been updated since
+                    <lightning-formatted-date-time
+                        value={opportunityLastModifiedDate}
+                        year="numeric"
+                        month="long"
+                        day="2-digit"
+                    ></lightning-formatted-date-time>
+                    and will be automatically closed on
+                    <lightning-formatted-date-time
+                        value={projectedCloseDate}
+                        year="numeric"
+                        month="long"
+                        day="2-digit"
+                    ></lightning-formatted-date-time
+                    >.
+                </p>
+                <div class="slds-m-top_small">
+                    <lightning-button
+                        variant="brand"
+                        label="Keep Alive"
+                        title="Reset the auto-closure timer"
+                        onclick={handleKeepAlive}
+                        disabled={isProcessing}
+                        class="slds-m-right_x-small"
+                    ></lightning-button>
+                    <lightning-button
+                        variant="neutral"
+                        label="Acknowledge"
+                        title="Dismiss alert without resetting timer"
+                        onclick={handleAcknowledge}
+                        disabled={isProcessing}
+                    ></lightning-button>
+                </div>
+            </div>
+        </lightning-card>
+    </template>
+</template>
